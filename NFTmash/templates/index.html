@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block section %}
+<section class="pt-3">	
+	<div class="container">
+		<div class="text-center">
+			<h1 class="title" id="title">Pick Your Favorite</h1>
+			<p class="subtitle" id="subtitle">you have <span id="countdown"></span> seconds to choose</p>
+		</div>
+
+		<div class="row justify-content-center">
+			<div class="col-5 mx-4 mt-4" id="left">
+				<div class="card border-black bg-dark border-3">
+				<img src="{{ left.image }}" class="card-img-top" alt="#{{ left.random }}">
+					<div class="card-body">
+						<h3 class="card-title text-end text-light px-1">#{{ left.random }}</h3>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-5 mx-4 mt-4" id="right">
+				<div class="card border-black bg-dark border-3">
+				<img src="{{ right.image }}" class="card-img-top" alt="#{{ right.random }}">
+					<div class="card-body">
+						<h3 class="card-title text-end text-light px-1">#{{ right.random }}</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script type="text/javascript">
+	$("#left").click(function() {
+		$.post("{{ url_for('main.vote') }}", {uuid: "{{ id }}", vote: "left"}, function (data, status) {
+			if (status == "success") {
+				location.reload();
+			}
+		});
+	});
+	$("#right").click(function() {
+		$.post("{{ url_for('main.vote') }}", {uuid: "{{ id }}", vote: "right"}, function (data, status) {
+			if (status == "success") {
+				location.reload();
+			}
+		});
+	});
+
+	var countdown = 30;
+
+	var interval = setInterval(function() {
+		$("#countdown").text(countdown);
+		if (countdown > 0) { countdown--; } 
+		else {
+			$("#title").text("Vote Timeout");
+			$("#subtitle").text("refresh the site to continue playing");
+			$("#left").hide(); $("#right").hide();
+		}
+	}, 1000);
+</script>
+
+{% endblock %}
