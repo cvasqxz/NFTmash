@@ -9,7 +9,7 @@ db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://nftmash:nftmashlocalhost/nftmash'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://nftmash:nftmash@localhost/nftmash'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     with app.app_context():

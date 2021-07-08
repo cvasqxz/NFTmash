@@ -1,7 +1,5 @@
-# z80
-Test de interacción Metamask + Chaucha
-
-¿Cómo correr z80?
+# NFTmash
+Ranking de NFT basados en belleza relativa
 
 ```
 $ pipenv install
@@ -12,7 +10,6 @@ $ pipenv run flask run
 
 ## requerimientos
 
-* flask
-* redis
+* python3 (Cambiar versión en Pipfile)
 * postgresql
-* miau miau
+* redis-server
