@@ -11,15 +11,17 @@ def create_app():
 
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://nftmash:nftmash@localhost/nftmash'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['REDIS_URL'] = "redis://:nftmash@localhost:6379/0"
 
     with app.app_context():
         from .models import ranking
         db.init_app(app)
         db.create_all()
 
-        from NFTmash import main
-        from NFTmash.blueprints import coolcats, cryptopunks
+        from NFTmash.blueprints import coolcats, cryptopunks, ranking, main
+
         app.register_blueprint(main.bp)
+        app.register_blueprint(ranking.bp)
         app.register_blueprint(coolcats.bp)
         app.register_blueprint(cryptopunks.bp)
 

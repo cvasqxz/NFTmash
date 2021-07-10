@@ -3,13 +3,24 @@ from NFTmash.models.ranking	 import Ranking
 from NFTmash import redis_client, db
 from json import loads
 
-bp = Blueprint('main', __name__, url_prefix='/')
+bp = Blueprint('ranking', __name__, url_prefix='/ranking')
 
 
-@bp.route("/ranking/<collection>/")
-def ranking(collection):
-	full_ranking = Ranking.query.filter_by(collection=collection).limit(9)
-	return render_template("ranking.html", collection=collection, full_ranking=full_ranking)
+@bp.route("/<collection>")
+def vote_results(collection):
+	current_page = request.args.get("page")
+	current_page = 1 if current_page == None else int(current_page)
+
+	count = Ranking.query.filter_by(collection=collection).count()
+	max_pages = int(count/12) + 1
+
+	full_ranking = Ranking.query.filter_by(collection=collection).limit(12).offset(12*(current_page-1))
+
+	return render_template("ranking.html", 
+		collection=collection, 
+		full_ranking=full_ranking,
+		current_page=current_page,
+		max_pages=max_pages)
 
 
 @bp.route("/vote", methods=["POST"])

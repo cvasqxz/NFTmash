@@ -5,14 +5,29 @@
 	<div class="container">
 		<div class="text-center">
 			<h1 class="title" id="title">{{ collection }} ranking</h1>
-			<p class="subtitle" id="subtitle">based on subjective beauty</p>
+			<p class="subtitle" id="subtitle">
+				{% if current_page != 1 %}
+				<a href="{{ url_for('ranking.vote_results', collection=collection, page=current_page-1) }}">&#60;</a>
+				{% endif %}
+
+				page {{ current_page }} of {{ max_pages }}
+
+				{% if current_page != max_pages %}
+				<a href="{{ url_for('ranking.vote_results', collection=collection, page=current_page+1) }}">&#62;</a>
+				{% endif %}
+			</p>
 		</div>
-		<div class="row justify-content-center">
+		<div class="row">
+			{% set counter = 12*(current_page - 1) + 1 %}
 			{% for rank in full_ranking %}
-			<div class="col-3 mx-1 mt-4">
+			<div class="col-2 mt-4">
+
 				<div class="card border-black bg-dark border-3">
-				<div class="card-header text-light text-center">{{ rank.votes }} points</div>
-				<img src="{{ rank.image }}" class="card-img-top" alt="#{{ rank.id }}">
+					<div class="card-header text-light text-center mt-1">
+						<p>rank #{{ counter + loop.index0}}</p>
+						<p class="little"> ({{ rank.votes }} points)</p>
+					</div>
+					<img src="{{ rank.image }}" class="card-img-top" alt="#{{ rank.id }}">
 					<div class="card-body">
 						<h3 class="card-title text-end text-light px-1">#{{ rank.id }}</h3>
 					</div>
