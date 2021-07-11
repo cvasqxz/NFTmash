@@ -10,7 +10,7 @@
 		<div class="row justify-content-center">
 			<div class="col-5 mx-4 mt-4" id="left">
 				<div class="card border-black bg-dark border-3">
-					<img src="{{ left.image }}" class="card-img-top" alt="#{{ left.random }}">
+					<img src="{{ left.image }}" {% if pixelated %} class="pixelated" {% endif %} alt="#{{ left.random }}">
 					<div class="card-body">
 						<h3 class="card-title text-end text-light px-1">#{{ left.random }}</h3>
 					</div>
@@ -18,7 +18,7 @@
 			</div>
 			<div class="col-5 mx-4 mt-4" id="right">
 				<div class="card border-black bg-dark border-3">
-					<img src="{{ right.image }}" class="card-img-top" alt="#{{ right.random }}">
+					<img src="{{ right.image }}" {% if pixelated %} class="pixelated" {% endif %} alt="#{{ right.random }}">
 					<div class="card-body">
 						<h3 class="card-title text-end text-light px-1">#{{ right.random }}</h3>
 					</div>

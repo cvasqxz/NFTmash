@@ -29,4 +29,4 @@ def index():
 
 	dbsize = redis_client.dbsize()
 
-	return render_template("index.html", left=left, right=right, id=uuid, dbsize=dbsize)
+	return render_template("index.html", left=left, right=right, id=uuid, dbsize=dbsize, pixelated=True)
