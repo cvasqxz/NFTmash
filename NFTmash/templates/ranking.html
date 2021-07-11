@@ -27,7 +27,7 @@
 						<p>rank #{{ counter + loop.index0}}</p>
 						<p class="little"> ({{ rank.votes }} points)</p>
 					</div>
-					<img src="{{ rank.image }}" class="card-img-top" alt="#{{ rank.id }}">
+					<img src="{{ rank.image }}" {% if pixelated %} class="pixelated" {% endif %} alt="#{{ rank.id }}">
 					<div class="card-body">
 						<h3 class="card-title text-end text-light px-1">#{{ rank.id }}</h3>
 					</div>
