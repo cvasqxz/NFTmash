@@ -16,11 +16,14 @@ def vote_results(collection):
 
 	full_ranking = Ranking.query.filter_by(collection=collection).limit(12).offset(12*(current_page-1))
 
+	is_pixelated = True if collection == "cryptopunks" else False
+
 	return render_template("ranking.html", 
 		collection=collection, 
 		full_ranking=full_ranking,
 		current_page=current_page,
-		max_pages=max_pages)
+		max_pages=max_pages,
+		pixelated=is_pixelated)
 
 
 @bp.route("/vote", methods=["POST"])
