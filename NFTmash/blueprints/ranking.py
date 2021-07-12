@@ -14,7 +14,7 @@ def vote_results(collection):
 	count = Ranking.query.filter_by(collection=collection).count()
 	max_pages = int(count/12) + 1
 
-	full_ranking = Ranking.query.filter_by(collection=collection).limit(12).offset(12*(current_page-1))
+	full_ranking = Ranking.query.filter_by(collection=collection).order_by(Ranking.votes.desc()).limit(12).offset(12*(current_page-1))
 
 	is_pixelated = True if collection == "cryptopunks" else False
 
